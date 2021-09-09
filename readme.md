@@ -4,7 +4,7 @@ This test is designed to help us understand how you would tackle common front-en
 
 ## Back-end Requirements
 
-Develop a simple rest or graphql api using NodeJS to fetch and create clients. The client model should simply store the name, email, createdDate & company fields. It's up to you how you decide to store the data on the back-end.
+Develop a simple rest or graphql api using NodeJS to fetch and create clients. The client model should simply store the name, email, createdDate & company fields. It's up to you how you decide to store the data on the back-end.  The data storage should be persitent and scaleable.
 
 ## Front-end Requirements
 
