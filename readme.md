@@ -1,10 +1,10 @@
 # EValue Full-stack Technical Test
 
-This test is designed to help us understand how you would tackle common front-end and back-end problem. Fork this repo and use the scaffold to build a mini full-stack application with the following requirements:
+This test is designed to help us understand how you would tackle common front-end and back-end problem. Fork this mono-repo and use the scaffold to build a mini full-stack application with the following requirements:
 
 ## Back-end Requirements
 
-Develop a simple rest or graphql api using NodeJS to fetch and create clients. The client model should simply store the name, email, createdDate & company fields. It's up to you how you decide to store the data on the back-end.  The data storage should be persitent and scaleable.
+Develop a simple rest or graphql api using NodeJS to fetch and create clients. The client model should simply store the name, email, createdDate & company fields. It's up to you how you decide to store the data on the back-end. The data storage should be persitent and scaleable.
 
 ## Front-end Requirements
 
