@@ -10,8 +10,9 @@
   "scripts": {
     "fe": "yarn workspace frontend start",
     "be": "yarn workspace backend start",
-    "fe:test": "yarn workspace frontend run test",
-    "test": "yarn workspaces foreach -pt run test"
+    "test": "yarn run test:fe && yarn run test:be",
+    "test:fe": "yarn workspace frontend run test",
+    "test:be": "yarn workspace backend run test test"
   },
   "devDependencies": {
     "jest": "^27.1.0"
