@@ -30,6 +30,6 @@ We suggest you time box this test to 3 hours. We don't expect you to finish all 
 - `yarn run fe` to start the front-end development server
 - `yarn run test` to run all front-end and back-end tests
 
-## Send us the project
+## Sending us the project
 
 Once you've completed the test. Send us the link to your forked
