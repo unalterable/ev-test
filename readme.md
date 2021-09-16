@@ -1,6 +1,6 @@
 # EValue Full-stack Technical Test
 
-This test is designed to help us understand how you would tackle common front-end and back-end problem. Fork this mono-repo and use the scaffold to build a mini full-stack application with the following requirements:
+This test is designed to help us understand how you would tackle common front-end and back-end problem. **Fork this mono-repo** and use the scaffold to build a mini full-stack application with the following requirements:
 
 ## Back-end Requirements
 
@@ -23,11 +23,13 @@ We suggest you time box this test to 3 hours. We don't expect you to finish all 
 - Node 12+
 - Code editor of your choice
 
-## Instructions
+## Running the project
 
 - `yarn install` to install the dependencies
 - `yarn run be` to start the back-end server
 - `yarn run fe` to start the front-end development server
 - `yarn run test` to run all front-end and back-end tests
+
+## Send us the project
 
 Once you've completed the test. Send us the link to your forked
