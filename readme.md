@@ -2,7 +2,10 @@
 
 ## Local development
 
-To run the project simply run: `DOCKER_USER=$(id -u):$(id -g) docker-compose up`.
+To run the project simply run: 
+```
+DOCKER_USER=$(id -u):$(id -g) docker-compose up
+```
 No need to install deps or run development servers, or databases on your local machine. Docker will handle all that for you.
 
 * Unfortunately `vite` (the frontend dev server) has issues with permissions because it edits `node_modules` on start - so `DOCKER_USER=$(id -u):$(id -g)` is needed
