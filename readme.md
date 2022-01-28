@@ -1,5 +1,15 @@
 # EValue Full-stack Technical Test
 
+To run the project simply run: `DOCKER_USER=$(id -u):$(id -g) docker-compose up`.
+No need to install deps or run development servers, or databases on your local machine. Docker will handle all that for you.
+
+* Unfortunately `vite` (the frontend dev server) has issues with permissions because it edits `node_modules` on start - so `DOCKER_USER=$(id -u):$(id -g)` is needed
+
+- Once running visit: `http://localhost:3000/`.
+- The backend can be reached on: `http://localhost:3001/` - however `vite` will proxy requests to `http://localhost:3000/` to the backend, via the internal docker network. (just like `webpack-dev-server` or `create-react-app`)
+
+# Test:
+
 This test is designed to help us understand how you would tackle common front-end and back-end problem. **Fork this mono-repo** and use the scaffold to build a mini full-stack application with the following requirements:
 
 ## Back-end Requirements
@@ -22,13 +32,6 @@ We suggest you time box this test to 3 hours. We don't expect you to finish all 
 
 - Node 12+
 - Code editor of your choice
-
-## Running the project
-
-- `yarn install` to install the dependencies
-- `yarn run be` to start the back-end server
-- `yarn run fe` to start the front-end development server
-- `yarn run test` to run all front-end and back-end tests
 
 ## Sending us the project
 

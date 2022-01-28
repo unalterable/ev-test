@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  frontend:
+    image: node:16
+    working_dir: /app
+    user: $DOCKER_USER
+    container_name: frontend
+    command: 'bash -c "id && whoami && npm i && npm run dev"'
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+
+  backend:
+    image: node:16
+    working_dir: /app
+    container_name: backend
+    command: 'bash -c "npm i && npm run dev"'
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3001:3001"
+
+  mongo:
+    image: mongo:5
+    container_name: mongo
+    ports:
+      - "27017:27017"
