@@ -2,9 +2,9 @@ import initDatabase from '../database/initDatabase'
 import { z, ZodError } from 'zod'
 
 const parseAsNewClient = (payload: any) => z.object({
-  name: z.string().min(2),
+  name: z.string().min(1),
   email: z.string().email(),
-  company: z.string().min(2),
+  company: z.string().min(1),
 }).parseAsync(payload)
   .catch((err: ZodError) => Promise.reject({ status: 400 }))
 
