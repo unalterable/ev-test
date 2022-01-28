@@ -11,7 +11,7 @@ No need to install deps or run development servers, or databases on your local m
 * Unfortunately `vite` (the frontend dev server) has issues with permissions because it edits `node_modules` on start - so `DOCKER_USER=$(id -u):$(id -g)` is needed
 
 - Once running visit: `http://localhost:3000/`.
-- The backend can be reached on: `http://localhost:3001/` - however `vite` will proxy requests to `http://localhost:3000/` to the backend, via the internal docker network. (just like `webpack-dev-server` or `create-react-app`)
+- The backend can be reached on: `http://localhost:3001/` - however `vite` has now been configured to proxy requests to `http://localhost:3000/` to the backend, via the internal docker network. (just like `webpack-dev-server` or `create-react-app`)
 
 ## Tests
 
