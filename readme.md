@@ -1,5 +1,7 @@
 # EValue Full-stack Technical Test
 
+## Local development
+
 To run the project simply run: `DOCKER_USER=$(id -u):$(id -g) docker-compose up`.
 No need to install deps or run development servers, or databases on your local machine. Docker will handle all that for you.
 
@@ -7,6 +9,18 @@ No need to install deps or run development servers, or databases on your local m
 
 - Once running visit: `http://localhost:3000/`.
 - The backend can be reached on: `http://localhost:3001/` - however `vite` will proxy requests to `http://localhost:3000/` to the backend, via the internal docker network. (just like `webpack-dev-server` or `create-react-app`)
+
+## Tests
+
+Backend tests are designed to run against a full server. Thus it's best to run them in the docker container when working locally:
+```
+docker-compose exec backend npm test
+```
+
+Frontend tests are currently just unit tests on components. The can be run in or out of the container:
+```
+docker-compose exec frontend npm test
+```
 
 # Test:
 
