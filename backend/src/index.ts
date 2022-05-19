@@ -1,3 +1,4 @@
+import path from 'path'
 import express from 'express'
 import 'express-async-errors'
 import initDomain from './domain/initDomain'
@@ -10,6 +11,10 @@ const runApp = async () => {
   app.use(express.json())
   app.get('/api/clients/all', (req, res) => domain.getAllClients().then(allClients => res.send(allClients)))
   app.post('/api/clients/create', async(req, res) =>  domain.createNewClient(req.body).then(() => res.sendStatus(201)))
+
+  app.use('/', express.static('dist'))
+
+  app.get('/*', (req, res) => res.sendFile(path.join(__dirname + '/dist/index.html')))
 
   app.listen(3001, () => {
     console.log("Server started on port 3001");
