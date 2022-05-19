@@ -14,5 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: test
+      env:
+        GCLOUD_AS_BASE64: ${{ secrets.GCLOUDSA }}
+      run: echo $GCLOUD_AS_BASE64 | base64 --decode
+    - name: Connect to gcloud registry
+      env:
+        GCLOUD_AS_BASE64: ${{ secrets.GCLOUDSA }}
+      run: echo $GCLOUD_AS_BASE64 | base64 --decode | docker login -u _json_key --password-stdin https://gcr.io
+    - name: Build Docker Image
+      run: |
+        tagname=gcr.io/centering-star-245013/ev_test:$(date +%s)
+        docker build . --tag $tagname
+        docker push $tagname
