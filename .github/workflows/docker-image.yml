@@ -19,16 +19,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Bump version and push tag
+    - name: Bump version and push tag (master only)
       if: github.ref == 'refs/heads/master'
       id: semver
       uses: anothrNick/github-tag-action@1.36.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Set tag to current date (for branches)
+    - name: Set tag to current date (branches only)
       if: github.ref != 'refs/heads/master'
       run: echo "TAG=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
-    - name: Set tag to new semantic version (for master)
+    - name: Set tag to new semantic version (master only)
       if: github.ref == 'refs/heads/master'
       run: echo "TAG=${{ steps.semver.outputs.tag }}" >> $GITHUB_ENV
 
