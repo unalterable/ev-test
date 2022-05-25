@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set current date as env variable
-      run: echo "TAG=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
+      run: echo "TAG=SNAPSHOT-$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
     - name: Build Docker Image
       run: docker build . --tag $DOCKER_REGISTRY:$TAG
     - name: Connect to gcloud registry
@@ -36,7 +36,7 @@ jobs:
     - name: Create Preview Env
       if: github.ref != 'refs/heads/master'
       run: |
-        sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-$PR_NUMBER|g" ./charts/argocd.yaml
+        sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/argocd.yaml
         sed -i "s|MY_COMMITISH|master|g" ./charts/argocd.yaml
         sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/argocd.yaml
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
@@ -44,4 +44,5 @@ jobs:
         kubectl -n argocd apply -f ./charts/argocd.yaml
     - name: Publish Helm Chart
       if: github.ref == 'refs/heads/master'
-      run: echo master
+      run: |
+        helm package charts/ev-fullstack-tech-test
