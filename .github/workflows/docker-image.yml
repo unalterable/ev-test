@@ -9,6 +9,7 @@ on:
 env:
   DOCKER_REGISTRY: gcr.io/centering-star-245013/ev_test
   GCLOUD_AS_BASE64: ${{ secrets.GCLOUDSA }}
+  PR_NUMBER: ${{ github.event.number }}
 
 jobs:
 
@@ -45,11 +46,18 @@ jobs:
         cluster_name: cluster-1
         location: europe-west2-a
         credentials: ${{ secrets.GCLOUDSA }} }
-    - name: Deploy Preview Env
+  
+    - name: Deploy Preview Env (branches only)
       run: |
-        sed -i "s|MY_APP_NAME|ev-fullstack-tech-test|g" ./charts/argocd.yaml
+        sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/argocd.yaml
         sed -i "s|MY_COMMITISH|master|g" ./charts/argocd.yaml
         sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/argocd.yaml
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
         cat  ./charts/argocd.yaml
         kubectl -n argocd apply -f ./charts/argocd.yaml
+  
+    - name: Publish Helm Chart (master only)
+      if: github.ref == 'refs/heads/master'
+      run: |
+        helm package charts/ev-fullstack-tech-test --version $TAG
+        curl --data-binary "@ev-fullstack-tech-test:$TAG" http://35.197.246.56:8080/api/charts
