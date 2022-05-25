@@ -40,3 +40,8 @@ jobs:
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
         cat  ./charts/argocd.yaml
         kubectl -n argocd apply -f ./charts/argocd.yaml
+    - name: Bump version and push tag
+      if: github.ref == 'refs/heads/master'
+      uses: anothrNick/github-tag-action@1.36.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
