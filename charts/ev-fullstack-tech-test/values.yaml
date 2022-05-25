@@ -4,7 +4,7 @@ image:
   repository: gcr.io/centering-star-245013/ev_test
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2022-05-25T10_21_26"
+  tag: MY_IMAGE_TAG
 
 containerPort: 3001
 
