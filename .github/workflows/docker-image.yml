@@ -52,7 +52,7 @@ jobs:
       if: github.ref != 'refs/heads/master'
       run: |
         sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/argocd.yaml
-        sed -i "s|MY_COMMITISH|master|g" ./charts/argocd.yaml
+        sed -i "s|MY_COMMITISH|$(git rev-parse --short "$GITHUB_SHA")|g" ./charts/argocd.yaml
         sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/argocd.yaml
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
         cat  ./charts/argocd.yaml
@@ -62,7 +62,7 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/ev-fullstack-tech-test/values.yaml
-        sed -i "s|MY_COMMITISH|master|g" ./charts/ev-fullstack-tech-test/values.yaml
+        sed -i "s|MY_COMMITISH|$TAG|g" ./charts/ev-fullstack-tech-test/values.yaml
         sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/ev-fullstack-tech-test/values.yaml
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/ev-fullstack-tech-test/values.yaml
         helm package charts/ev-fullstack-tech-test --version $TAG
