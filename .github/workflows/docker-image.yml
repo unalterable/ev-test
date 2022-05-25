@@ -48,6 +48,7 @@ jobs:
         credentials: ${{ secrets.GCLOUDSA }} }
   
     - name: Deploy Preview Env (branches only)
+      if: github.ref != 'refs/heads/master'
       run: |
         sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/argocd.yaml
         sed -i "s|MY_COMMITISH|master|g" ./charts/argocd.yaml
