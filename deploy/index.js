@@ -12,7 +12,7 @@ const updateVersion = async () => {
   console.log('OLD', JSON.stringify(chartJson, null, 2))
 
   const appIndex = findIndex(matchesProperty('name', process.env['APP']), chartJson.dependencies)
-  if (appIndex < 0) throw new Error(`App "${process.env['APP']}" not found in ${fileLocationInfo.path}`)
+  if (appIndex < 0) throw new Error(`App "${process.env['APP']}" not found in ${fileLocationInfo.path} in repo ${fileLocationInfo.owner}/${fileLocationInfo.repo}`)
   const newChartJson = set(`dependencies.${appIndex}.version`, process.env['VERSION'], chartJson)
 
   console.log('NEW', JSON.stringify(newChartJson, null, 2))
