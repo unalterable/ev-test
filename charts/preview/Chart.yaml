@@ -7,3 +7,4 @@ dependencies:
 - alias: preview
   name: ev-fullstack-tech-test
   repository: file://../ev-fullstack-tech-test/
+  version: 0.0.1
