@@ -33,30 +33,31 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: echo "TAG=${{ steps.semver.outputs.tag }}" >> $GITHUB_ENV
 
-    # - name: Build Docker Image
-    #   run: docker build . --tag $DOCKER_REGISTRY:$TAG
-    # - name: Connect to gcloud registry
-    #   run: echo $GCLOUD_AS_BASE64 | base64 --decode | docker login -u _json_key --password-stdin https://gcr.io
-    # - name: Push Docker Image
-    #   run:  docker push $DOCKER_REGISTRY:$TAG
+    - name: Build Docker Image
+      run: docker build . --tag $DOCKER_REGISTRY:$TAG
+    - name: Connect to gcloud registry
+      run: echo $GCLOUD_AS_BASE64 | base64 --decode | docker login -u _json_key --password-stdin https://gcr.io
+    - name: Push Docker Image
+      run:  docker push $DOCKER_REGISTRY:$TAG
   
-    # - name: Connect to cluster
-    #   uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-    #   with: 
-    #     cluster_name: cluster-1
-    #     location: europe-west2-a
-    #     credentials: ${{ secrets.GCLOUDSA }} }
+    - name: Connect to cluster
+      uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+      with: 
+        cluster_name: cluster-1
+        location: europe-west2-a
+        credentials: ${{ secrets.GCLOUDSA }} }
   
-    # - name: Deploy Preview Env (branches only)
-    #   run: |
-    #     sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/argocd.yaml
-    #     sed -i "s|MY_COMMITISH|master|g" ./charts/argocd.yaml
-    #     sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/argocd.yaml
-    #     sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
-    #     cat  ./charts/argocd.yaml
-    #     kubectl -n argocd apply -f ./charts/argocd.yaml
+    - name: Deploy Preview Env (branches only)
+      run: |
+        sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/argocd.yaml
+        sed -i "s|MY_COMMITISH|master|g" ./charts/argocd.yaml
+        sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/argocd.yaml
+        sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
+        cat  ./charts/argocd.yaml
+        kubectl -n argocd apply -f ./charts/argocd.yaml
   
     - name: Publish Helm Chart (master only)
-      # if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
       run: |
         helm package charts/ev-fullstack-tech-test --version $TAG
+        curl --data-binary "@ev-fullstack-tech-test:$TAG" http://35.197.246.56:8080/api/charts
