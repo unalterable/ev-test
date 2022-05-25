@@ -19,7 +19,7 @@ const updateVersion = async () => {
 
   await octokit.rest.repos.createOrUpdateFileContents({
     ...fileLocationInfo,
-    message: `Tech Test Team. Updating ${process.env['APP']}:${process.env['VERSION']}`,
+    message: `Application upgrade: ${process.env['APP']}:${process.env['VERSION']}`,
     content: Buffer.from(YAML.stringify(newChartJson)).toString('base64'),
     sha: data.sha,
     committer: { name: 'Tech Test Team', email: 'tech_test@ev.uk' }

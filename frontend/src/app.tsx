@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import { parseAsClients } from "./schemas"
 import ClientPage from './ClientPage'
 
-
+console.log('hello devops at EV')
 const App = () => {
   return (
     <ClientPage
