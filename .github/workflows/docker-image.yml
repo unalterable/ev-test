@@ -62,3 +62,10 @@ jobs:
       run: |
         helm package charts/ev-fullstack-tech-test --version $TAG
         curl -v --data-binary "@ev-fullstack-tech-test-$TAG.tgz" http://35.197.246.56:8080/api/charts
+
+    - name: Deploy To Dev (master only)
+      if: github.ref == 'refs/heads/master'
+      run: |
+        cd deploy
+        npm ci
+        APP=ev-fullstack-tech-test VERSION=$TAG TOKEN=${{ secrets.DEV_REPO_TOKEN }} npm start
