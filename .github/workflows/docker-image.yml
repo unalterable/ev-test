@@ -26,4 +26,5 @@ jobs:
       run: |
         tagname=gcr.io/centering-star-245013/ev_test:$(date +%s)
         docker build . --tag $tagname
-        docker push $tagname
+    - name: Push Docker Image
+      run: docker push $tagname
