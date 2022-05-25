@@ -7,27 +7,36 @@ on:
     branches: [ master ]
 
 env:
-  TAGPREFIX: gcr.io/centering-star-245013/ev_test
+  DOCKER_REGISTRY: gcr.io/centering-star-245013/ev_test
   GCLOUD_AS_BASE64: ${{ secrets.GCLOUDSA }}
 
 jobs:
 
-  Build and Push:
+  Build_and_Push:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Set current date as env variable
-      run: echo "DATE=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
-    - name: Build Docker Image
-      run: docker build . --tag $TAGPREFIX:$DATE
-    - name: Connect to gcloud registry
-      run: echo $GCLOUD_AS_BASE64 | base64 --decode | docker login -u _json_key --password-stdin https://gcr.io
-    - name: Push Docker Image
-      run:  docker push $TAGPREFIX:$DATE
+      run: echo "TAG=$(date +'%Y-%m-%dT%H_%M_%S')" >> $GITHUB_ENV
+    # - name: Build Docker Image
+    #   run: docker build . --tag $DOCKER_REGISTRY:$TAG
+    # - name: Connect to gcloud registry
+    #   run: echo $GCLOUD_AS_BASE64 | base64 --decode | docker login -u _json_key --password-stdin https://gcr.io
+    # - name: Push Docker Image
+    #   run:  docker push $DOCKER_REGISTRY:$TAG
     - name: Connect to cluster
       uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-      with: { cluster_name: cluster-1, location: europe-west2-a, credentials: ${{ secrets.GCLOUDSA }} }
+      with: 
+        cluster_name: cluster-1
+        location: europe-west2-a
+        credentials: ${{ secrets.GCLOUDSA }} }
     - name: Call Cluster
-      run: kubectl get pods --all-namespaces
+      run: |
+        sed -i "s|MY_APP_NAME|ev-fullstack-tech-test|g" ./charts/argocd.yaml
+        sed -i "s|MY_COMMITISH|master|g" ./charts/argocd.yaml
+        sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/argocd.yaml
+        sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
+        cat  ./charts/argocd.yaml
+        kubectl -n argocd apply -f ./charts/argocd.yaml
