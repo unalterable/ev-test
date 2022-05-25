@@ -40,3 +40,6 @@ jobs:
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
         cat  ./charts/argocd.yaml
         kubectl -n argocd apply -f ./charts/argocd.yaml
+    - name: Call Cluster
+      if: github.ref != 'refs/heads/master'
+      run: echo ${{ github.event.number }}
