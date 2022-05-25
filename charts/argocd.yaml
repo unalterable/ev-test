@@ -11,8 +11,8 @@ spec:
   project: default
   source:
     repoURL: git@github.com:unalterable/ev-test.git
-    targetRevision: MY_COMMITISH
-    path: charts/ev-fullstack-tech-test
+    targetRevision: "MY_COMMITISH"
+    path: charts/preview
     helm:
       parameters:
       - name: "nginx-ingress.controller.service.annotations.external-dns\\.alpha\\.kubernetes\\.io/hostname"
@@ -21,11 +21,11 @@ spec:
         value: "true"
         forceString: true # ensures that value is treated as a string
       values: |
-        image:
-          repository: MY_DOCKER_REGISTRY
-          pullPolicy: IfNotPresent
-          # Overrides the image tag whose default is the chart appVersion.
-          tag: MY_IMAGE_TAG
+        preview:
+          image:
+            repository: MY_DOCKER_REGISTRY
+            pullPolicy: IfNotPresent
+            tag: MY_IMAGE_TAG
 
   # Destination cluster and namespace to deploy the application
   destination:
