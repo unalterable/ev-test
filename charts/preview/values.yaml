@@ -1,0 +1,10 @@
+preview:
+  image:
+    repository:
+    tag:
+    pullPolicy: IfNotPresent
+  env:
+    NODE_ENV: development
+    JWT_SIGNING_KEY: unsafe_key
+    HASHED_API_TOKEN: e361c2ec7475262a28b523de635cf516de427928e68a94bd413ef9effa8c6b69 # unhashed: INSECURE_TOKEN
+  envFrom: []

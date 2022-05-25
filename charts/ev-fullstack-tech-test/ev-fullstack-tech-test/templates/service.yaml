@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ev-fullstack-tech-test.fullname" . }}
+  labels:
+    {{- include "ev-fullstack-tech-test.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "ev-fullstack-tech-test.selectorLabels" . | nindent 4 }}
