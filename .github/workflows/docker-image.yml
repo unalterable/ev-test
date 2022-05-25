@@ -17,7 +17,7 @@ jobs:
     - name: test
       env:
         GCLOUD_AS_BASE64: ${{ secrets.GCLOUDSA }}
-      run: echo $GCLOUD_AS_BASE64 | base64 --decode
+      run: echo $GCLOUD_AS_BASE64
     - name: Connect to gcloud registry
       env:
         GCLOUD_AS_BASE64: ${{ secrets.GCLOUDSA }}
