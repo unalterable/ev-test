@@ -33,19 +33,19 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: echo "TAG=${{ steps.semver.outputs.tag }}" >> $GITHUB_ENV
 
-    # - name: Build Docker Image
-    #   run: docker build . --tag $DOCKER_REGISTRY:$TAG
-    # - name: Connect to gcloud registry
-    #   run: echo $GCLOUD_AS_BASE64 | base64 --decode | docker login -u _json_key --password-stdin https://gcr.io
-    # - name: Push Docker Image
-    #   run:  docker push $DOCKER_REGISTRY:$TAG
+    - name: Build Docker Image
+      run: docker build . --tag $DOCKER_REGISTRY:$TAG
+    - name: Connect to gcloud registry
+      run: echo $GCLOUD_AS_BASE64 | base64 --decode | docker login -u _json_key --password-stdin https://gcr.io
+    - name: Push Docker Image
+      run:  docker push $DOCKER_REGISTRY:$TAG
   
-    # - name: Connect to cluster
-    #   uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-    #   with: 
-    #     cluster_name: cluster-1
-    #     location: europe-west2-a
-    #     credentials: ${{ secrets.GCLOUDSA }} }
+    - name: Connect to cluster
+      uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+      with: 
+        cluster_name: cluster-1
+        location: europe-west2-a
+        credentials: ${{ secrets.GCLOUDSA }} }
   
     - name: Deploy Preview Env (branches only)
       if: github.ref != 'refs/heads/master'
