@@ -11,7 +11,7 @@ spec:
   project: default
   source:
     repoURL: git@github.com:unalterable/ev-test.git
-    targetRevision: MY_COMMITISH
+    targetRevision: "MY_COMMITISH"
     path: charts/preview
     helm:
       parameters:

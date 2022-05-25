@@ -51,10 +51,8 @@ jobs:
     - name: Deploy Preview Env (branches only)
       if: github.ref != 'refs/heads/master'
       run: |
-        echo $GITHUB_SHA
-        git rev-parse HEAD
         sed -i "s|MY_APP_NAME|ev-fullstack-tech-test-pr-$PR_NUMBER|g" ./charts/argocd.yaml
-        sed -i "s|MY_COMMITISH|$(git rev-parse --short "$GITHUB_SHA")|g" ./charts/argocd.yaml
+        sed -i "s|MY_COMMITISH|$GITHUB_SHA|g" ./charts/argocd.yaml
         sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/argocd.yaml
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/argocd.yaml
         cat  ./charts/argocd.yaml
