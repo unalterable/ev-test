@@ -71,7 +71,7 @@ const ClientsPage = (props: { fetchClients: () => Promise<Clients>, createClient
       <Box p="2rem" data-testid="client-create-box">
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar} />
-          <Typography component="h1" variant="h5">Create A Client, in devops!!</Typography>
+          <Typography component="h1" variant="h5">Create A Client</Typography>
           <State initialState={{ name: '', email: '', company: '' }}>
             {({ state: client, setState: setClient, reset }) => (
               <form className={classes.form} onSubmit={e => (e.preventDefault(), createClient(client).then(reset))}>
