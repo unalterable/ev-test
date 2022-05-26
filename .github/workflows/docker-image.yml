@@ -66,7 +66,7 @@ jobs:
         sed -i "s|MY_DOCKER_REGISTRY|$DOCKER_REGISTRY|g" ./charts/ev-fullstack-tech-test/values.yaml
         sed -i "s|MY_IMAGE_TAG|$TAG|g" ./charts/ev-fullstack-tech-test/values.yaml
         helm package charts/ev-fullstack-tech-test --version $TAG
-        curl -v --data-binary "@ev-fullstack-tech-test-$TAG.tgz" http://35.197.246.56:8080/api/charts
+        curl -v --data-binary "@ev-fullstack-tech-test-$TAG.tgz" http://35.246.32.247:8080/api/charts
 
     - name: Deploy To Dev (master only)
       if: github.ref == 'refs/heads/master'
